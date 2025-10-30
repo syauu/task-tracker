@@ -91,35 +91,47 @@ def addTask():
 def updateTask():
     tasks = loadFile()
     listTask()
-    id = int(input("What task to update? Enter number: "))  # kena specify convert to int. ensure to handle error kalau user input other than number guna try except
     try:
+        id = int(input("What task to update? Enter number: "))  # kena specify convert to int. ensure to handle error kalau user input other than number guna try except
         desc_array = id - 1
+
+        # status
+        print("Choose status:")
+        print("1. To do")
+        print("2. In progress")
+        print("3. Completed")
+        status_choice = input("Choose status (1/2/3): ")
+        match status_choice:
+            case "1":
+                status_update = "todo"
+            case "2":
+                status_update = "in progress"
+            case "3":
+                status_update = "completed"
+            case _:
+                status_update = "todo"
+
+        tasks[desc_array]["status"] = status_update
+        tasks[desc_array]["updatedAt"] = datetime.datetime.now().strftime("%c")
+
+        saveFile(tasks)
+        print("Task status updated successfully")
     except ValueError:
         print("Please enter a number")
-    # status
-    print("Choose status:")
-    print("1. To do")
-    print("2. In progress")
-    print("3. Completed")
-    status_choice = input("Choose status (1/2/3): ")
-    match status_choice:
-        case "1":
-            status_update = "todo"
-        case "2":
-            status_update = "in progress"
-        case "3":
-            status_update = "completed"
-        case _:
-            status_update = "todo"
-
-    tasks[desc_array]["status"] = status_update
-    tasks[desc_array]["updatedAt"] = datetime.datetime.now().strftime("%c")
-
-    saveFile(tasks)
-    print("Task status updated successfully")
+    
 
 def deleteTask():
-    pass
+    tasks = loadFile()
+    listTask()
+    id = int(input("What task to delete? Enter number: "))
+    try:
+        desc_array = id - 1
+        tasks.pop(desc_array)
 
-updateTask()
+        saveFile(tasks)
+        print("Task deleted.")
+    except ValueError:
+        print("Please enter a valid number")
+
+deleteTask()
 listTask()
