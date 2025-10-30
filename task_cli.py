@@ -62,6 +62,7 @@ def listTask():
             for task in tasks:
                 print(f"{task['id']}. {task['desc']}.")
                 print(f"Status: {task['status']}")
+                print()
     except FileNotFoundError:
         print("json file not found")
     except json.JSONDecodeError:
@@ -88,9 +89,37 @@ def addTask():
 
 
 def updateTask():
-    pass
+    tasks = loadFile()
+    listTask()
+    id = int(input("What task to update? Enter number: "))  # kena specify convert to int. ensure to handle error kalau user input other than number guna try except
+    try:
+        desc_array = id - 1
+    except ValueError:
+        print("Please enter a number")
+    # status
+    print("Choose status:")
+    print("1. To do")
+    print("2. In progress")
+    print("3. Completed")
+    status_choice = input("Choose status (1/2/3): ")
+    match status_choice:
+        case "1":
+            status_update = "todo"
+        case "2":
+            status_update = "in progress"
+        case "3":
+            status_update = "completed"
+        case _:
+            status_update = "todo"
+
+    tasks[desc_array]["status"] = status_update
+    tasks[desc_array]["updatedAt"] = datetime.datetime.now().strftime("%c")
+
+    saveFile(tasks)
+    print("Task status updated successfully")
 
 def deleteTask():
     pass
 
+updateTask()
 listTask()
