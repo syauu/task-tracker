@@ -132,5 +132,25 @@ def deleteTask():
     except ValueError:
         print("Please enter a valid number")
 
-deleteTask()
-listTask()
+def menuOption():
+    print("===MENU===")
+    print("1. List task")
+    print("2. Add task")
+    print("3. Update task")
+    print("4. Delete task")
+    try:
+        option = int(input("Choose your option (1/2/3/4):"))
+        match option:
+            case 1:
+                listTask()
+            case 2:
+                addTask()
+            case 3:
+                updateTask()
+            case 4:
+                deleteTask()
+    except ValueError:
+        print("Please enter a valid number")
+    
+
+menuOption()
