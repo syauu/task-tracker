@@ -1,1 +1,9 @@
-[]
+[
+    {
+        "id": 1,
+        "desc": "makan",
+        "status": "todo",
+        "createdAt": "Thu Oct 30 10:51:58 2025",
+        "updatedAt": "Thu Oct 30 10:51:58 2025"
+    }
+]

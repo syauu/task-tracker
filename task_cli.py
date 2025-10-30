@@ -27,8 +27,31 @@ def loadFile():
         return json.load(file) # guna load() untuk read dan parse to python dict/list
 
 def saveFile(tasks):
-    with open(task_file, "w") as file:
-        json.dump(tasks, file, indent=4)
+    with open(task_file, "w") as file:  # w means write mode
+        json.dump(tasks, file, indent=4)    # dump() to send python object to json data
+                                            # dump(python object, file yang nak diedit, other arguments...)
+                                            # guna indent=4 untuk bagi data dalam json nampak kemas
+
+def getUserInput():
+    # description
+    desc = input("What task?: ")
+    # status
+    print("Choose status:")
+    print("1. To do")
+    print("2. In progress")
+    print("3. Completed")
+    status_choice = input("Choose status (1/2/3): ")
+    match status_choice:
+        case "1":
+            status = "todo"
+        case "2":
+            status = "in progress"
+        case "3":
+            status = "completed"
+        case _:
+            status = "todo"
+
+    return desc, status
 
 def listTask():
     tasks = loadFile()
@@ -37,14 +60,31 @@ def listTask():
             print("No tasks available")
         else:
             for task in tasks:
-                print(f"{tasks['id']}. {tasks['description']}. Status: {tasks['status']}")
+                print(f"{task['id']}. {task['desc']}.")
+                print(f"Status: {task['status']}")
     except FileNotFoundError:
         print("json file not found")
     except json.JSONDecodeError:
         print("Wrong json format")
 
 def addTask():
-    pass
+    # loadFile dulu. it will read and change data from json into python dict
+    tasks = loadFile()
+    # get the details for new task
+    desc, status = getUserInput()
+    new_task = {
+        "id": len(tasks) + 1,
+        "desc": desc,
+        "status": status,
+        "createdAt": datetime.datetime.now().strftime("%c"),
+        "updatedAt": datetime.datetime.now().strftime("%c")
+    }
+    # then append(). it will add new task to the python object, belum edit json lagi
+    tasks.append(new_task)
+    # then saveFile. ini baru w mode, baru dia edit json file
+    saveFile(tasks)
+
+    print("Task added successfully!")
 
 
 def updateTask():
