@@ -19,6 +19,7 @@
 
 import json
 import datetime
+import time
 
 task_file = "tasks.json"
 
@@ -59,8 +60,8 @@ def listTask():
         if not tasks:
             print("No tasks available")
         else:
-            for task in tasks:
-                print(f"{task['id']}. {task['desc']}.")
+            for index, task in enumerate(tasks, start=1):   #guna enumerate() untuk display index for list task
+                print(f"{index}. {task['desc']}.")
                 print(f"Status: {task['status']}")
                 print()
     except FileNotFoundError:
@@ -74,7 +75,7 @@ def addTask():
     # get the details for new task
     desc, status = getUserInput()
     new_task = {
-        "id": len(tasks) + 1,
+        "id": int(time.time()),
         "desc": desc,
         "status": status,
         "createdAt": datetime.datetime.now().strftime("%c"),
@@ -92,8 +93,7 @@ def updateTask():
     tasks = loadFile()
     listTask()
     try:
-        id = int(input("What task to update? Enter number: "))  # kena specify convert to int. ensure to handle error kalau user input other than number guna try except
-        desc_array = id - 1
+        chosenTask = int(input("Which task to update? Enter number: ")) - 1
 
         # status
         print("Choose status:")
@@ -111,8 +111,8 @@ def updateTask():
             case _:
                 status_update = "todo"
 
-        tasks[desc_array]["status"] = status_update
-        tasks[desc_array]["updatedAt"] = datetime.datetime.now().strftime("%c")
+        tasks[chosenTask]["status"] = status_update
+        tasks[chosenTask]["updatedAt"] = datetime.datetime.now().strftime("%c")
 
         saveFile(tasks)
         print("Task status updated successfully")
@@ -123,13 +123,12 @@ def updateTask():
 def deleteTask():
     tasks = loadFile()
     listTask()
-    id = int(input("What task to delete? Enter number: "))
     try:
-        desc_array = id - 1
-        tasks.pop(desc_array)
+        chosenTask = int(input("What task to delete? Enter number: ")) - 1
+        removed = tasks.pop(chosenTask)
 
         saveFile(tasks)
-        print("Task deleted.")
+        print(f"Task {removed['desc']} deleted.")
     except ValueError:
         print("Please enter a valid number")
 
