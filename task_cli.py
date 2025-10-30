@@ -1,6 +1,6 @@
 # get data from json
-# list task
-# add, update, delete task
+# list task (done)
+# add, update, delete task (done)
 # list completed task
 # list task in progress
 
@@ -132,6 +132,17 @@ def deleteTask():
     except ValueError:
         print("Please enter a valid number")
 
+def listCompletedTask():
+    tasks = loadFile()
+    found = False
+    for index, task in enumerate(tasks, start=1):
+        if task["status"] == "completed":
+            print("Completed task:")
+            print(f"{index}. {task['desc']}")
+            found = True
+    if not found:
+        print("No completed task found")
+
 def menuOption():
     print("===MENU===")
     print("1. List task")
@@ -153,4 +164,4 @@ def menuOption():
         print("Please enter a valid number")
     
 
-menuOption()
+listCompletedTask()
