@@ -1,16 +1,1 @@
-[
-    {
-        "id": 1761809202,
-        "desc": "tidur",
-        "status": "completed",
-        "createdAt": "Thu Oct 30 15:26:42 2025",
-        "updatedAt": "Thu Oct 30 15:55:12 2025"
-    },
-    {
-        "id": 1761810882,
-        "desc": "makan",
-        "status": "todo",
-        "createdAt": "Thu Oct 30 15:54:42 2025",
-        "updatedAt": "Thu Oct 30 15:54:42 2025"
-    }
-]
+[]
