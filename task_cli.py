@@ -106,8 +106,7 @@ def addTask():
             repeat = 1
             while repeat != "0":
                 singleTask()
-                repeatInput = input("Press any button to continue or 0 to stop: ")
-                print("")
+                repeatInput = input("Press enter to continue or 0 to stop: ")
                 repeat = repeatInput
         case _:
             print("Invalid choice")
@@ -215,6 +214,7 @@ def listNotDone():
 
 def mainMenu():
     while True:
+        print("")
         print("======MENU======")
         print("1. List task")
         print("2. Add task")
