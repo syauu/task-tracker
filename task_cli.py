@@ -37,6 +37,7 @@ def getUserInput():
     # description
     desc = input("What task?: ")
     # status
+    print("")
     print("Choose status:")
     print("1. To do")
     print("2. In progress")
@@ -61,7 +62,7 @@ def listTask():
             print("No tasks available")
             print("")
         else:
-            print("===========================")
+            print("")
             for index, task in enumerate(tasks, start=1):   #guna enumerate() untuk display index for list task
                 print(f"{index}. {task['desc']}.")
                 print(f"Status: {task['status']}")
@@ -80,7 +81,7 @@ def addTask():
     def singleTask():
         tasks = loadFile()
         # get the details for new task
-        print("============================")
+        print("")
         desc, status = getUserInput()
         new_task = {
             "id": int(time.time()),
@@ -95,6 +96,7 @@ def addTask():
         saveFile(tasks)
         print("")
         print("Task added successfully!")
+        print("")
  
     match sinOrMul:
         case 1:
@@ -105,6 +107,7 @@ def addTask():
             while repeat != "0":
                 singleTask()
                 repeatInput = input("Press any button to continue or 0 to stop: ")
+                print("")
                 repeat = repeatInput
         case _:
             print("Invalid choice")
@@ -119,7 +122,6 @@ def updateTask():
         return
     listTask()
     try:
-        print("")
         chosenTask = int(input("Which task to update? Enter number: ")) - 1
 
         # status
@@ -144,6 +146,7 @@ def updateTask():
         saveFile(tasks)
         print("")
         print("Task status updated successfully")
+        print("")
     except ValueError:
         print("Please enter a number")
     except IndexError:
@@ -170,6 +173,7 @@ def deleteTask():
 
             saveFile(tasks)
             print(f"Task {removed['desc']} deleted.")
+            print("")
     except ValueError:
         print("Please enter a valid number")
     except IndexError:
