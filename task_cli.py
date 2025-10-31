@@ -20,10 +20,15 @@
 import json
 import datetime
 import time
+import os
 
 task_file = "tasks.json"
 
 def loadFile():
+    if not os.path.exists(task_file):
+        with open(task_file, "w") as file:
+            json.dump([], file, indent=4)
+
     with open(task_file, "r") as file: # r means read mode. 
         return json.load(file) # guna load() untuk read dan parse to python dict/list
 
