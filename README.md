@@ -1,6 +1,7 @@
 Task Tracker CLI (Python)
 
 A simple command-line task tracker app built with Python.
+This project was built based on project idea from https://roadmap.sh/projects/task-tracker
 This app allows you to add, update, delete and view tasks stored locally in tasks.json file.
 
 Tech Stack:
